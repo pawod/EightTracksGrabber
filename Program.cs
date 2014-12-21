@@ -1,8 +1,11 @@
 ﻿#region
 
 using System;
+using System.Web;
 using Com.Wodzu.EightTracksGrabber.Core;
 using SharpPcap;
+using SharpPcap.LibPcap;
+
 
 #endregion
 
@@ -12,8 +15,7 @@ namespace Com.Wodzu.EightTracksGrabber
     {
         public static void Main(string[] args)
         {
-            var devices = CaptureDeviceList.Instance;
-
+			var devices = CaptureDeviceList.Instance;
             for (var i = 0; i < devices.Count; i++)
             {
                 Console.WriteLine("Device #{0}\r\n{1}\n", i, devices[i]);

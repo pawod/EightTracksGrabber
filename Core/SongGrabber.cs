@@ -14,8 +14,6 @@ using SharpPcap.LibPcap;
 
 namespace Com.Wodzu.EightTracksGrabber.Core
 {
-	// TODO modes: active(use webclient and for fetching json response) / passive(listen and wait for matching json)
-
 	/// <summary>
 	///     Grabs tracks from 8Tracks.com by sniffing the network traffic between client and service for API requests and
 	///     extracting the resource URLs to the desired song.
@@ -24,7 +22,7 @@ namespace Com.Wodzu.EightTracksGrabber.Core
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 		// keeps track of the current playlist, since its name is only transmitted on the first request
-		private string _currentPlaylist;
+		private string _referer;
 		private readonly bool _activeMode;
 
 		/// <summary>
@@ -64,10 +62,10 @@ namespace Com.Wodzu.EightTracksGrabber.Core
 
 					var response = songRequest.GetResponse();
 					Logger.Debug("Captured response: {0}", response);
-					songResponse = new SongResponse(JObject.Parse(response), _currentPlaylist);
+
+					songResponse = new SongResponse(JObject.Parse(response), _referer);
 				}
-				if (songResponse == null)
-					return;
+				if (songResponse == null) return;
 				songResponse.DownloadSong(DownloadDirectory.FullName);
 			}
 			catch (Exception ex)
@@ -82,16 +80,20 @@ namespace Com.Wodzu.EightTracksGrabber.Core
 		private static string GetFilterString(ICaptureDevice captureDevice)
 		{
 			var device = (LibPcapLiveDevice) captureDevice;
-			//            device.Addresses
-			return String.Format("((tcp dst port 80) and (src net {0})) or ((dst net {0}) and (tcp src port 80))",
-				device.Addresses[1]);
+
+			var type = Type.GetType("Mono.Runtime");
+			var address = (type == null)
+				? device.Addresses[1].Addr.ipAddress.ToString()
+				: device.Addresses[2].Addr.ipAddress.ToString();
+
+			return string.Format("((tcp dst port 80) and (src net {0})) or ((dst net {0}) and (tcp src port 80))", address);
 		}
 
 		private void SetCurrentPlayList(IHttpRequest request)
 		{
 			if (!String.IsNullOrWhiteSpace(request.Referer))
-				_currentPlaylist = request.Referer.Replace(String.Format("http://{0}", request.Host), "");
-			Logger.Debug("Current playlist is: \"{0}\"", _currentPlaylist);
+				_referer = request.Referer.Replace(String.Format("http://{0}", request.Host), "");
+			Logger.Debug("Current playlist is: \"{0}\"", _referer);
 		}
 
 		#endregion private methods

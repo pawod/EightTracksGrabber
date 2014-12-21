@@ -4,8 +4,8 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using Com.Wodzu.WebAutomation.Helpers;
 using Com.Wodzu.WebAutomation.Packet.Http;
-using Com.Wodzu.WebAutomatization.Impl.Helpers;
 using Newtonsoft.Json.Linq;
 
 #endregion
