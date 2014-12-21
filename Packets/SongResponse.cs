@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Com.Wodzu.EightTracksGrabber.Core;
 using Com.Wodzu.WebAutomation.Helpers;
@@ -121,34 +122,46 @@ namespace Com.Wodzu.EightTracksGrabber.Packets
 		public string TrackUrl { get; private set; }
 		public string ImageUrl { get; private set; }
 
-		public void DownloadSong(string targetBaseDir, bool generateTags = true, bool overwrite = false)// TODO: make configurable
+		public void DownloadSong(string targetBaseDir, bool generateTags = true, bool overwrite = false)
+			// TODO: make configurable
 		{
 			Task.Factory.StartNew(() =>
 			{
 				// TODO: download playlist pic 
 				// TODO: use it for album art
 				var target = GetDownloadTarget(targetBaseDir);
-				FileGrabber.Download(DownloadUrl, target, overwrite);
-				FinishDownload(target, generateTags, overwrite);
+				if (!overwrite && FileNameExists(target)) // if audiofile already exists, don't create a .download file
+				{
+					Logger.Info("An audio file with name \"{0}\" already exists, aborting download", FileName);
+					return;
+				}
+				FileGrabber.Download(DownloadUrl, target, true);
+				FinishDownload(target, generateTags);
 			});
 		}
 
 		#region private methods
 
-		private void FinishDownload(FileInfo target, bool generateTags = true, bool overwrite = false)
+		private bool FileNameExists(FileInfo target)
+		{
+			return target.Directory != null &&
+			       (target.Directory.Exists &&
+			        target.Directory.GetFiles()
+				        .Any(
+					        file => Path.GetFileNameWithoutExtension(file.FullName).Equals(FileName, StringComparison.InvariantCulture)));
+		}
+
+		private void FinishDownload(FileInfo target, bool generateTags)
 		{
 			var container = AudioContainer.GetAudioContainer(target.FullName);
 			if (string.IsNullOrWhiteSpace(container))
 			{
-				Logger.Warn("Unknown container format, cannot set ID3 tags.");
+				Logger.Warn("Unknown container format, cannot set file extension.");
 				return;
 			}
-			
 			var newFile = Path.ChangeExtension(target.FullName, container);
-			if (File.Exists(newFile) && overwrite) File.Delete(newFile);
-			
 			File.Move(target.FullName, newFile);
-			if (generateTags) AddId3Tags(new FileInfo(newFile)); 
+			if (generateTags) AddId3Tags(new FileInfo(newFile));
 		}
 
 		private void AddId3Tags(FileInfo target)
@@ -174,7 +187,7 @@ namespace Com.Wodzu.EightTracksGrabber.Packets
 			var normalizedFileName = FileGrabber.NormalizeFileName(FileName);
 			return
 				new FileInfo(String.Format("{0}{1}{2}{3}{4}{5}{6}.download", targetBaseDir, Path.DirectorySeparatorChar, PlayList,
-					Path.DirectorySeparatorChar,User,Path.DirectorySeparatorChar,normalizedFileName));
+					Path.DirectorySeparatorChar, User, Path.DirectorySeparatorChar, normalizedFileName));
 		}
 
 		#endregion private methods

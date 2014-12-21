@@ -26,7 +26,7 @@ namespace Com.Wodzu.EightTracksGrabber.Core
 				while (file.Position < MAX_HEADERSIZE)
 				{
 					file.Read(buffer, 0, 16);
-					if (buffer.ContainsSequence(MP4)) return "mp4";
+					if (buffer.ContainsSequence(MP4)) return "m4a";
 					if (buffer.ContainsSequence(LAME) || buffer.ContainsSequence(ID3)) return "mp3";
 				}
 				Logger.Warn("Failed to determine audio container (max header size: {0}).", MAX_HEADERSIZE);
