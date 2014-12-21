@@ -18,7 +18,7 @@ namespace Com.Wodzu.EightTracksGrabber
 			var devices = CaptureDeviceList.Instance;
             for (var i = 0; i < devices.Count; i++)
             {
-                Console.WriteLine("Device #{0}\r\n{1}\n", i, devices[i]);
+                Console.WriteLine("Device ID: {0}\r\n{1}\n", i, devices[i]);
             }
 
             Console.Write("Choose device: ");

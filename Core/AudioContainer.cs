@@ -10,7 +10,6 @@ namespace Com.Wodzu.EightTracksGrabber.Core
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 		private static readonly byte[] LAME = {76, 65, 77, 69};
 		private static readonly byte[] ID3 = {73, 68, 51};
-		private static readonly byte[] MP4ISOM = {109, 112, 52, 50, 105, 115, 111, 109};
 		private static readonly byte[] MP4 = {109, 112, 52};
 
 		/// <summary>

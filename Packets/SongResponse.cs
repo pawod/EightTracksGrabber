@@ -173,9 +173,8 @@ namespace Com.Wodzu.EightTracksGrabber.Packets
 		{
 			var normalizedFileName = FileGrabber.NormalizeFileName(FileName);
 			return
-				new FileInfo(String.Format("{0}{1}{2}{3}{4}.download", targetBaseDir, Path.DirectorySeparatorChar, PlayList,
-					Path.DirectorySeparatorChar,
-					normalizedFileName));
+				new FileInfo(String.Format("{0}{1}{2}{3}{4}{5}{6}.download", targetBaseDir, Path.DirectorySeparatorChar, PlayList,
+					Path.DirectorySeparatorChar,User,Path.DirectorySeparatorChar,normalizedFileName));
 		}
 
 		#endregion private methods
