@@ -234,3 +234,8 @@ Release/bin/SharpPcap.dll.config
 Release/bin/EightTracksGrabber.vshost.exe.manifest
 Release/bin/EightTracksGrabber.vshost.exe
 Release/bin/EightTracksGrabber.vshost.exe.config
+Project/bin/Release/SharpPcap.dll.config
+Project/bin/Release/SharpPcap.dll
+Project/bin/Release/EightTracksGrabber.vshost.exe.manifest
+Project/bin/Release/EightTracksGrabber.vshost.exe.config
+Project/bin/Release/EightTracksGrabber.vshost.exe
