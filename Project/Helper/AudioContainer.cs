@@ -2,7 +2,7 @@
 using System.Linq;
 using NLog;
 
-namespace Com.Wodzu.EightTracksGrabber.Core
+namespace Com.Wodzu.EightTracksGrabber.Helper
 {
 	public static class AudioContainer
 	{
@@ -16,8 +16,8 @@ namespace Com.Wodzu.EightTracksGrabber.Core
 		///     Determines the audio container type of a given file by checking its header against some magic numbers.
 		/// </summary>
 		/// <param name="fileName">The file to determine the audio container type.</param>
-		/// <returns>The audio container type if there was a match, else null.</returns>
-		public static string GetAudioContainer(string fileName)
+		/// <returns>The audio container format if there was a match, else null.</returns>
+		public static string GetContainerFormat(string fileName)
 		{
 			using (var file = File.OpenRead(fileName))
 			{
