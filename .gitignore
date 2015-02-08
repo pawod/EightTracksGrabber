@@ -9,8 +9,6 @@
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
 x64/
 x86/
 build/
@@ -235,3 +233,6 @@ $RECYCLE.BIN/
 EightTracksGrabber.userprefs
 
 EightTracksGrabber.userprefs
+
+Release/EightTracksGrabber.vshost.exe
+Release/EightTracksGrabber.vshost.exe.config
