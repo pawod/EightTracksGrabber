@@ -8,13 +8,11 @@
 
 # Build results
 [Dd]ebug/
-[Rr]elease/
 [Dd]ebugPublic/
 x64/
 x86/
 build/
 bld/
-[Bb]in/
 [Oo]bj/
 
 # Roslyn cache directories
@@ -232,6 +230,4 @@ $RECYCLE.BIN/
 *.userprefs
 
 Release/bin/SharpPcap.dll
-Release/bin/SharpPcap.dll.config
-Release/bin/SharpPcap.dll
-Release/bin/SharpPcap.dll.config
+Release/bin/SharpPcap.dll.configa
