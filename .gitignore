@@ -232,3 +232,5 @@ $RECYCLE.BIN/
 Release/bin/SharpPcap.dll
 Release/bin/SharpPcap.dll.config
 Release/bin/EightTracksGrabber.vshost.exe.manifest
+Release/bin/EightTracksGrabber.vshost.exe
+Release/bin/EightTracksGrabber.vshost.exe.config
