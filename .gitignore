@@ -231,14 +231,5 @@ $RECYCLE.BIN/
 
 *.userprefs
 
-EightTracksGrabber.userprefs
-
-EightTracksGrabber.userprefs
-
-Release/EightTracksGrabber.vshost.exe
-Release/EightTracksGrabber.vshost.exe.config
-Release/SharpPcap.dll.config
-Release/bin/SharpPcap.dll
-Release/bin/SharpPcap.dll.config
 Release/bin/SharpPcap.dll
 Release/bin/SharpPcap.dll.config
