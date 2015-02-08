@@ -230,4 +230,4 @@ $RECYCLE.BIN/
 *.userprefs
 
 Release/bin/SharpPcap.dll
-Release/bin/SharpPcap.dll.configa
+Release/bin/SharpPcap.dll.config
